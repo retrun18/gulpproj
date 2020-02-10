@@ -49,7 +49,7 @@ var vectorLayer1 = new ol.layer.Vector({
     style.getText().setText(feature.get('name'));
     return style;                                                               }                                                                       });
 	//map.addLayer(vectorLayer1)
-	fetch(areasurl,{method:"GET",mode: "cors"}).then(function(response){
+	fetch(areasurl,{method:"GET"}).then(function(response){
 	return response.json();
 }).then(function(json){
 	getyiqing().then((yqjson)=>{
@@ -97,7 +97,7 @@ var vectorLayer1 = new ol.layer.Vector({
 let yqurl="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=6uKNYwJa"
 let yqurl1="https://interface.sina.cn/news/wap/fymap2020_data.d.json"
 function getyiqing(){
-return fetch(yqurl,{mode:"cors"}).then(function(res){
+return fetch(yqurl/*,{mode:"cors"}*/).then(function(res){
 return res.json();
 });
 }

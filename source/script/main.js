@@ -22,7 +22,7 @@ var map = new ol.Map({
     //添加视图
     view: view
 })
-	map.on('pointermove', showInfo);
+	map.on('click', showInfo);
 
 let info = document.getElementById('info');
 function showInfo(event) {
@@ -88,8 +88,7 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
             });
             let vectorLayer = new ol.layer.Vector({
                 source: vectorSource,
-		    renderBuffer:12,
-		    minResolution:800,
+		    maxZoom:9,
                 style: function(feature) {
                     style.getText().setText(feature.get('name'));
                     let fillcolor = 'rgba(255,255,255,0.6)';

@@ -22,9 +22,9 @@ var map = new ol.Map({
     //添加视图
     view: view
 })
-let areasurl='https://geo.datav.aliyun.com/areas/bound/100000_full.json';
+let areasurl='script/100000_full.json';
 let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=6uKNYwJa"
-	fetch(areasurl,{method:'get',mode:'cors',headers:{'Content-Type':"application/x-www-form-urlencoded"}}).then(res=>{
+	fetch(areasurl,/*{method:'get',mode:'cors',headers:{'Content-Type':"application/x-www-form-urlencoded"}}*/).then(res=>{
 		return res.json();
 	})
 		.then(function(json) {

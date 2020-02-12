@@ -44,10 +44,10 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
 		return res.json();
 	})
 		.then(function(json) {
-		console.log(json)
+		//console.log(json)
         getyiqing().then((yqjson) => {
-            console.log(yqjson)
-            console.log(json)
+            //console.log(yqjson)
+            //console.log(json)
             let meslist = yqjson.data.area;
             for (let key in json.features) {
                 let pro = json.features[key];
@@ -62,11 +62,7 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
                 features: (new ol.format.GeoJSON()).readFeatures(json, {
                     featureProjection: 'EPSG:3857'
                 })
-            });
-            console.log((new ol.format.GeoJSON({
-                dataProjection: "epsg:4326"
-            })).readFeatures(json))
- 
+            }); 
             let style = new ol.style.Style({
                 fill: new ol.style.Fill({
                     color: 'rgba(255, 100, 100, 0.6)'
@@ -109,7 +105,6 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
                 }
             });
             map.addLayer(vectorLayer);
-            console.log(vectorLayer.getSource().getFeatures());
         });
  
     })

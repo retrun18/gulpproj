@@ -39,6 +39,7 @@ padding:0;
     </style>
 <script>
 function init(){
+	if('https'!==document.location.protocol)
 eruda.init();
 initmap();
 console.log("page is ready to start!");

@@ -17,12 +17,28 @@ var map = new ol.Map({
     logo: false, //不显示openlayers的logo
     //添加图层
     layers: [googleLayer],
-    renderer: 'canvas',
-    target: 'mapcontent',
+	renderer:"webgl",
+	target: 'mapcontent',
     //添加视图
     view: view
 })
-let areasurl='script/100000_full.json';
+	map.on('pointermove', showInfo);
+
+let info = document.getElementById('info');
+function showInfo(event) {
+  let features = map.getFeaturesAtPixel(event.pixel);
+  if (features.length == 0) {
+    info.innerText = '';
+    info.style.opacity = 0;
+    return;
+  }
+  var mes = features[0].getProperties();
+  info.innerText =mes.name+ "\n确诊人数:"+mes.confirmedCount+
+"\n疑似人数:"+mes.curedCount+"\n死亡人数:"+mes.deadCount;
+  info.style.opacity = .7;
+}
+
+let areasurl='./script/100000_full.json';
 let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=6uKNYwJa"
 	fetch(areasurl,/*{method:'get',mode:'cors',headers:{'Content-Type':"application/x-www-form-urlencoded"}}*/).then(res=>{
 		return res.json();
@@ -72,6 +88,8 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
             });
             let vectorLayer = new ol.layer.Vector({
                 source: vectorSource,
+		    renderBuffer:12,
+		    minResolution:800,
                 style: function(feature) {
                     style.getText().setText(feature.get('name'));
                     let fillcolor = 'rgba(255,255,255,0.6)';

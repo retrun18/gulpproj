@@ -34,7 +34,7 @@ function showInfo(event) {
   }
   var mes = features[0].getProperties();
   info.innerText =mes.name+ "\n确诊人数:"+mes.confirmedCount+
-"\n疑似人数:"+mes.curedCount+"\n死亡人数:"+mes.deadCount;
+"\n治愈人数:"+mes.curedCount+"\n死亡人数:"+mes.deadCount;
   info.style.opacity = .7;
 }
 
@@ -46,7 +46,7 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
 		.then(function(json) {
 		//console.log(json)
         getyiqing().then((yqjson) => {
-            //console.log(yqjson)
+            console.log(yqjson)
             //console.log(json)
             let meslist = yqjson.data.area;
             for (let key in json.features) {
@@ -57,7 +57,8 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
                 pro.properties.confirmedCount = item.confirmedCount || 0;
                 pro.properties.curedCount = item.curedCount || 0;
                 pro.properties.deadCount = item.deadCount || 0;
-            }
+            	pro.properties.currentConfirmedCount=item.currentConfirmedCount ||0;
+	    }
             let vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(json, {
                     featureProjection: 'EPSG:3857'

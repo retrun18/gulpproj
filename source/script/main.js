@@ -49,8 +49,8 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
         getyiqing().then((yqjson) => {
             console.log(yqjson)
 	    alert("全国累计确诊:"+yqjson.data.diagnosed
-	    +";疑似病例:"+yqjson.data.suspect+";\n死亡人数:"
-	    +yqjson.data.death+";治愈人数:"+yqjson.data.cured
+	    +";\n疑似病例:"+yqjson.data.suspect+";\n死亡人数:"
+	    +yqjson.data.death+";\n治愈人数:"+yqjson.data.cured
 	    +";\n重症病例:"+yqjson.data.serious+";");
             //console.log(json)
             let meslist = yqjson.data.area;

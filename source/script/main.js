@@ -33,8 +33,9 @@ function showInfo(event) {
     return;
   }
   var mes = features[0].getProperties();
-  info.innerText =mes.name+ "\n确诊人数:"+mes.confirmedCount+
-"\n治愈人数:"+mes.curedCount+"\n死亡人数:"+mes.deadCount;
+  info.innerText =mes.name+ "\n累计确诊:"+mes.confirmedCount+
+"\n当前确诊:"+mes.currentConfirmedCount+"\n治愈人数:"+mes.curedCount+
+"\n死亡人数:"+mes.deadCount+(mes.suspectedCount==0?"":"\n疑似病例:"+mes.suspectedCount);
   info.style.opacity = .7;
 }
 
@@ -47,6 +48,10 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
 		//console.log(json)
         getyiqing().then((yqjson) => {
             console.log(yqjson)
+	    alert("全国累计确诊:"+yqjson.data.diagnosed
+	    +";疑似病例:"+yqjson.data.suspect+";\n死亡人数:"
+	    +yqjson.data.death+";治愈人数:"+yqjson.data.cured
+	    +";\n重症病例:"+yqjson.data.serious+";");
             //console.log(json)
             let meslist = yqjson.data.area;
             for (let key in json.features) {
@@ -58,6 +63,7 @@ let yqurl2="https://tianqiapi.com/api?version=epidemic&appid=22747463&appsecret=
                 pro.properties.curedCount = item.curedCount || 0;
                 pro.properties.deadCount = item.deadCount || 0;
             	pro.properties.currentConfirmedCount=item.currentConfirmedCount ||0;
+		pro.properties.suspectedCount=item.suspectedCount||0;
 	    }
             let vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(json, {
